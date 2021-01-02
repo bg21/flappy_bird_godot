@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://assets/fundo.png" type="Texture" id=1]
-[ext_resource path="res://scripts/felpudo.gd" type="Script" id=2]
-[ext_resource path="res://assets/felpudo/felpudoVoa1.png" type="Texture" id=3]
-[ext_resource path="res://assets/felpudo/felpudoVoa2.png" type="Texture" id=4]
-[ext_resource path="res://assets/felpudo/felpudoVoa3.png" type="Texture" id=5]
-[ext_resource path="res://assets/felpudo/felpudoVoa4.png" type="Texture" id=6]
-[ext_resource path="res://assets/felpudo/felpudoVoa5.png" type="Texture" id=7]
-[ext_resource path="res://assets/felpudo/felpudoVoa6.png" type="Texture" id=8]
+[ext_resource path="res://scenes/Cano.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/felpudo.gd" type="Script" id=3]
+[ext_resource path="res://assets/felpudo/felpudoVoa1.png" type="Texture" id=4]
+[ext_resource path="res://assets/felpudo/felpudoVoa2.png" type="Texture" id=5]
+[ext_resource path="res://assets/felpudo/felpudoVoa3.png" type="Texture" id=6]
+[ext_resource path="res://assets/felpudo/felpudoVoa4.png" type="Texture" id=7]
+[ext_resource path="res://assets/felpudo/felpudoVoa5.png" type="Texture" id=8]
+[ext_resource path="res://assets/felpudo/felpudoVoa6.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=4]
 
@@ -44,7 +45,7 @@ radius = 62.4568
 [sub_resource type="SpriteFrames" id=1]
 
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "default",
 "speed": 7.0
@@ -84,6 +85,12 @@ transform/scale = Vector2( 3.8, 3.6 )
 texture = ExtResource( 1 )
 centered = false
 
+[node name="Cano" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1111.97, 636.205 )
+z/z = 1
+velocidadeCano = -400
+
 [node name="Felpudo" type="RigidBody2D" parent="."]
 
 transform/pos = Vector2( 525.374, 511.968 )
@@ -91,7 +98,7 @@ transform/scale = Vector2( 1.4, 1.4 )
 z/z = 1
 input/pickable = false
 shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, -187.069, 98.7854 )
+shapes/0/transform = Matrix32( 1.5, 0, 0, 1.5, -187.069, 98.7854 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -110,20 +117,20 @@ velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
-script/script = ExtResource( 2 )
+script/script = ExtResource( 3 )
 
 [node name="FelpudoAnimacao" type="AnimatedSprite" parent="Felpudo"]
 
 transform/pos = Vector2( -199.671, 99.8356 )
 frames = SubResource( 1 )
 animation = "default"
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Felpudo"]
 
 transform/pos = Vector2( -187.069, 98.7854 )
-transform/scale = Vector2( 1, 1 )
+transform/scale = Vector2( 1.5, 1.5 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
