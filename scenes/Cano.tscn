@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scripts/cano.gd" type="Script" id=1]
 [ext_resource path="res://assets/cano.png" type="Texture" id=2]
@@ -7,6 +7,12 @@
 
 custom_solver_bias = 0.0
 extents = Vector2( 114.648, 1030.02 )
+
+[sub_resource type="SegmentShape2D" id=2]
+
+custom_solver_bias = 0.0
+a = Vector2( 0.4617, -294.614 )
+b = Vector2( 0.4617, 277.947 )
 
 [node name="Cano" type="Node2D"]
 
@@ -57,6 +63,26 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 1
 
+[node name="Pontos" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 315.115, 3.64679 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pontos"]
+
+transform/pos = Vector2( 315.115, 3.64679 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
 [connection signal="body_enter" from="Area2D" to="." method="_on_Area2D_body_enter"]
+
+[connection signal="body_enter" from="Pontos" to="." method="_on_Pontos_body_enter"]
 
 

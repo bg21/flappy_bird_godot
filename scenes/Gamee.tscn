@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=21 format=1]
 
 [ext_resource path="res://scripts/controle.gd" type="Script" id=1]
 [ext_resource path="res://assets/fundo.png" type="Texture" id=2]
@@ -9,9 +9,13 @@
 [ext_resource path="res://assets/felpudo/felpudoVoa4.png" type="Texture" id=7]
 [ext_resource path="res://assets/felpudo/felpudoVoa5.png" type="Texture" id=8]
 [ext_resource path="res://assets/felpudo/felpudoVoa6.png" type="Texture" id=9]
-[ext_resource path="res://scenes/Cano.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scripts/gerandoCanos.gd" type="Script" id=11]
-[ext_resource path="res://sound/somFundo.ogg" type="AudioStream" id=12]
+[ext_resource path="res://assets/fonts/font.fnt" type="BitmapFont" id=10]
+[ext_resource path="res://scenes/Cano.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scripts/gerandoCanos.gd" type="Script" id=12]
+[ext_resource path="res://sound/somScore.ogg" type="AudioStream" id=13]
+[ext_resource path="res://sound/somFundo.ogg" type="AudioStream" id=14]
+[ext_resource path="res://sound/somVoa.ogg" type="AudioStream" id=15]
+[ext_resource path="res://sound/somHit.ogg" type="AudioStream" id=16]
 
 [sub_resource type="Animation" id=1]
 
@@ -135,6 +139,40 @@ shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
+[node name="Node2D" type="Node2D" parent="."]
+
+editor/display_folded = true
+z/z = 3
+
+[node name="Control" type="Control" parent="Node2D"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -545.0
+margin/top = 93.0
+margin/right = -459.0
+margin/bottom = 133.0
+
+[node name="MostraPontos" type="Label" parent="Node2D/Control"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 550.0
+margin/top = -60.0
+margin/right = 1545.0
+margin/bottom = 113.0
+custom_fonts/font = ExtResource( 10 )
+text = "0"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Limites" type="StaticBody2D" parent="."]
 
 editor/display_folded = true
@@ -168,17 +206,17 @@ _update_shape_index = 1
 [node name="Canos" type="Node2D" parent="."]
 
 editor/display_folded = true
+z/relative = false
 
-[node name="Cano" parent="Canos" instance=ExtResource( 10 )]
+[node name="Cano" parent="Canos" instance=ExtResource( 11 )]
 
 transform/pos = Vector2( 866.75, 653.109 )
 z/z = 2
-velocidadeCano = -400
 
 [node name="Gerador" type="Position2D" parent="Canos"]
 
 transform/pos = Vector2( 1368.69, 680.948 )
-script/script = ExtResource( 11 )
+script/script = ExtResource( 12 )
 
 [node name="Timer" type="Timer" parent="Canos/Gerador"]
 
@@ -187,9 +225,20 @@ wait_time = 3.0
 one_shot = false
 autostart = true
 
+[node name="SomPontos" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 13 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
 [node name="SomFundo" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 12 )
+stream/stream = ExtResource( 14 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -204,6 +253,28 @@ process_mode = 1
 wait_time = 2.0
 one_shot = false
 autostart = false
+
+[node name="SomVoa" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 15 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+[node name="SomBateu" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 16 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
 
 [connection signal="timeout" from="Canos/Gerador/Timer" to="Canos/Gerador" method="_on_Timer_timeout"]
 

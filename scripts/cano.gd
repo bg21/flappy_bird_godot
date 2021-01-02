@@ -20,4 +20,10 @@ func _process(delta):
 func _on_Area2D_body_enter( body ):
 	#se o body (corpo) que atingiu a nossa área for o pássaro então faça algo
 	if(body.get_name() == "Felpudo"):
+
 		cena.encerrarCena();
+		
+
+
+func _on_Pontos_body_enter( body ):
+	cena.pontuar();

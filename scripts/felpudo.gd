@@ -3,11 +3,12 @@ extends RigidBody2D
 func _ready():
 	#monitorando o input
 	set_process_input(true);
-	get_node("../SomFundo").play();
+	
 	
 func _input(event):
 	if(event.is_action_pressed("touch")):
 		ao_clicar();
+		get_node("../SomVoa").play();
 
 #aplicando impulso pra cima, no y de -200 pra ir pra cima
 func ao_clicar():
